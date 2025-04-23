@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <div class="flex flex-col bg-blue-800 text-white transition-all duration-300 ease-in-out w-64" id="sidebar">
+      <div class="flex items-center justify-between h-16 px-4 bg-blue-900">
+        <h1 class="text-xl font-bold" id="sidebarTitle">RestoInventory</h1>
+        <button onclick="toggleSidebar()" class="text-white focus:outline-none">
+          <i class="fas fa-arrow-left" id="toggleIcon"></i>
+        </button>
+      </div>
+      <nav class="mt-6">
+        <div class="px-4 py-2">
+          <div class="flex items-center px-4 py-3 bg-blue-700 rounded-lg cursor-pointer" onclick="window.location.href='project2.html'">
+            <i class="fas fa-tachometer-alt mr-3"></i>
+            <span class="sidebar-label">Dashboard</span>
+          </div>
+          <div class="flex items-center px-4 py-3 mt-2 rounded-lg hover:bg-blue-700 cursor-pointer">
+            <i class="fas fa-boxes mr-3"></i>
+            <span class="sidebar-label">Inventory</span>
+          </div>
+          <div class="flex items-center px-4 py-3 mt-2 rounded-lg hover:bg-blue-700 cursor-pointer" onclick="window.location.href='menupage.html'">
+            <i class="fas fa-utensils mr-3"></i>
+            <span class="sidebar-label">Menu Items</span>
+          </div>
+          <div class="flex items-center px-4 py-3 mt-2 rounded-lg hover:bg-blue-700 cursor-pointer">
+            <i class="fas fa-file-invoice-dollar mr-3"></i>
+            <span class="sidebar-label">Suppliers</span>
+          </div>
+          <div class="flex items-center px-4 py-3 mt-2 rounded-lg hover:bg-blue-700 cursor-pointer" onclick="window.location.href='project2reportpage.html'">
+            <i class="fas fa-chart-line mr-3"></i>
+            <span class="sidebar-label">Reports</span>
+          </div>
+          <div class="flex items-center px-4 py-3 mt-2 rounded-lg hover:bg-blue-700 cursor-pointer">
+            <i class="fas fa-cog mr-3"></i>
+            <span class="sidebar-label">Settings</span>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Main content -->
+    <main class="flex-1 overflow-y-auto p-6">
+      <h1 class="text-3xl font-bold mb-6">Reports Dashboard</h1>
+
+      <!-- Sales Overview -->
+      <section class="mb-6">
+        <div class="bg-white p-6 rounded-2xl shadow-md">
+          <h2 class="text-xl font-semibold mb-4">Sales Overview</h2>
+          <div class="relative h-[400px]">
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Inventory & Top Selling -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-md">
+          <h2 class="text-xl font-semibold mb-4">Inventory Status</h2>
+          <div class="relative h-[350px]">
+            <canvas id="inventoryChart"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-md">
+          <h2 class="text-xl font-semibold mb-4">Top Selling Products</h2>
+          <div class="relative h-[350px]">
+            <canvas id="topSellingChart"></canvas>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const sidebarTitle = document.getElementById('sidebarTitle');
+      const labels = document.querySelectorAll('.sidebar-label');
+      const toggleIcon = document.getElementById('toggleIcon');
+
+      sidebar.classList.toggle('w-64');
+      sidebar.classList.toggle('w-20');
+
+      if (sidebar.classList.contains('w-20')) {
+        sidebarTitle.classList.add('opacity-0');
+        toggleIcon.classList.replace('fa-arrow-left', 'fa-arrow-right');
+        labels.forEach(label => label.classList.add('hidden'));
+      } else {
+        sidebarTitle.classList.remove('opacity-0');
+        toggleIcon.classList.replace('fa-arrow-right', 'fa-arrow-left');
+        labels.forEach(label => label.classList.remove('hidden'));
+      }
+    }
+
+    new Chart(document.getElementById('salesChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+          label: 'Sales',
+          data: [4500, 3200, 5300, 4900, 9000, 5800, 6700, 5400, 7200, 6800, 8200, 7900],
+          borderColor: '#3B82F6',
+          backgroundColor: 'rgba(59, 130, 246, 0.2)',
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    new Chart(document.getElementById('inventoryChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: ['Chinese', 'Indian', 'Meal', 'Snack', 'Beverages', 'Rajma chawal',],
+        datasets: [{
+          label: 'Stock',
+          data: [40, 85, 45, 35, 55, 75],
+          backgroundColor: ['#6366F1', '#38BDF8', '#FACC15', '#FBBF24', '#A855F7', '#10B981']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    new Chart(document.getElementById('topSellingChart').getContext('2d'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Pizza', 'Burger', 'Doughnut', 'Pastry', 'Veg thali', 'Chowmin-Fries', 'Pasta', 'Lassi'],
+        datasets: [{
+          data: [15, 20, 5, 18, 15, 10, 15, 12],
+          backgroundColor: ['#3B82F6', '#06B6D4', '#FBBF24', '#F97316', '#8B5CF6', '#E5124C', '#10B981', '#F472B6']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '70%',
+        plugins: { legend: { position: 'right' } }
+      }
+    });
+  </script>
+</body>
+</html>

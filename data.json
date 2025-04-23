@@ -1,0 +1,29 @@
+{
+  "sales": [
+    4500, 3200, 5300, 4900, 9000, 5800, 6700, 5400, 7200, 6800, 8200, 7900
+  ],
+  "inventory": {
+    "labels": [
+      "Chinese",
+      "Indian",
+      "Meal",
+      "Snack",
+      "Beverages",
+      "Rajma chawal"
+    ],
+    "stock": [40, 85, 45, 35, 55, 75]
+  },
+  "topSelling": {
+    "labels": [
+      "Pizza",
+      "Burger",
+      "Doughnut",
+      "Pastry",
+      "Veg thali",
+      "Chowmin-Fries",
+      "Pasta",
+      "Lassi"
+    ],
+    "data": [15, 20, 5, 18, 15, 10, 15, 12]
+  }
+}

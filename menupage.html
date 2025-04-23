@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Inventory Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <!-- Navbar -->
+    <header class="text-white p-4 shadow-md flex justify-between items-center">
+      <div>
+        <h1 class="text-2xl font-bold text-black">Buy Items</h1>
+        <p class="text-sm"></p>
+      </div>
+      <div class="relative cursor-pointer" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart text-2xl" style="color: black"></i>
+
+        <span
+          id="cart-count"
+          class="absolute -top-2 -right-2 bg-red-500 text-xs rounded-full px-1"
+          >0</span
+        >
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="p-6">
+      <h2 class="text-xl font-semibold mb-4">Items to Buy</h2>
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+      >
+        <!-- Item Card Template -->
+        <!-- You can replace the image URLs with your own -->
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://www.allrecipes.com/thmb/Bw4L_IuQHhHeqq52cEkWbA5PIGo=/0x512/filters:no_upscale():max_bytes(150000):strip_icc()/16160-juicy-grilled-chicken-breasts-ddmfs-5594-hero-3x4-902673c819994c0191442304b40104af.jpg"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">chicken Breast</h3>
+          <p class="text-sm text-gray-500">260/- kg</p>
+          <button
+            onclick="addToCart('Chicken Breast', 260)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://sinfullyspicy.com/wp-content/uploads/2023/09/1200-by-1200-images-3.jpg"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Chicken Keema</h3>
+          <p class="text-sm text-gray-500">₹280 per Kg</p>
+          <button
+            onclick="addToCart('Chicken Keema', 280)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI1qmSVr2KBbNfoMMyGVolR5gjMhgkYPkfXQ&s"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Beef</h3>
+          <p class="text-sm text-gray-500">₹250 per kg</p>
+          <button
+            onclick="addToCart('Beef', 250)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQnSETiB8gEhtl0wyflzPKQ9pHZ4PXo_g93Q&s"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Fish</h3>
+          <p class="text-sm text-gray-500">₹250 per unit</p>
+          <button
+            onclick="addToCart('Fish', 250)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiZLfW-VD-6j5HzoFB_jqvK1viSbF6VQaW7w&s"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Pizza Base</h3>
+          <p class="text-sm text-gray-500">₹50 per unit</p>
+          <button
+            onclick="addToCart('Pizza Base', 50)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuuzf0KNwXmU-iqmdXCDarIcNGbpBe90IbMA&s"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Burger Bun</h3>
+          <p class="text-sm text-gray-500">₹15 per unit</p>
+          <button
+            onclick="addToCart('Burger Bun', 15)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrn1hSUuj-BPkoRrleLjwiIQMFYmUI-stBcw&s"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Pizza sauce</h3>
+          <p class="text-sm text-gray-500">₹150 per unit</p>
+          <button
+            onclick="addToCart('Pizza Suace', 150)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRaP8EndpMOWSEk9g6rzrAzC4ZD2SH9fO180qOZTIeoz57CIDGP-7z0cVNsLhupnQDDcHW_kTJCSA_3R2lTi3rLR_fdu-bSzGeStdY0q9jpW3eIlpp5EFiQEA"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Mayonise</h3>
+          <p class="text-sm text-gray-500">1₹50 per unit</p>
+          <button
+            onclick="addToCart('Mayoniese', 150)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcT6mynQb_li5suHu26zh-eLYtz5dhxF7f_gURkbfoiLGZLDAXa5QDJtJFsdXRNK4kgUqSfA4JXSfP5IE8xEM9AlUmKZ7OipNJP4fjO4N7rPT9fIzypNEi3V"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Bread</h3>
+          <p class="text-sm text-gray-500">₹50 per unit</p>
+          <button
+            onclick="addToCart('Bread', 50)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcT5S8CBDz6Tp5_KgtGxv8IlbKZRxol1lr2h4jlN5JchPyUu7U-UumKKHuQCpZYzjltbjI5Y8nuAY6JTWymqvpI0fLdLjs0m5oe1X2umyIGv"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Capcium</h3>
+          <p class="text-sm text-gray-500">₹500 per Kg</p>
+          <button
+            onclick="addToCart('Capcicum', 500)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQWZo7pjjMUix3UsZ1dRf91VW77AZY6ED4yQtahIuWQyUL_8FmpqOXMBbWI_6koF0BXPP1MCIjaQdEIjO9IYN9__VpMFTv-mP3n9f78cOym"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Carrot</h3>
+          <p class="text-sm text-gray-500">₹400 per Kg</p>
+          <button
+            onclick="addToCart('Carrot', 400)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAhkt3QX8JHxuFKs_akZzA74HrX9rriH4bew&s"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Beans</h3>
+          <p class="text-sm text-gray-500">₹300 per Kg</p>
+          <button
+            onclick="addToCart('Beans', 300)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZIPfaj4NrvSMGkobsdN0JUBNevQAbLoymRQ&s"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Tomato</h3>
+          <p class="text-sm text-gray-500">₹30 per Kg</p>
+          <button
+            onclick="addToCart('Tomato', 30)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img src="https://images.ctfassets.net/0dkgxhks0leg/RKiZ605RAV8kjDQnxFCWP/b03b8729817c90b29b88d536bfd37ac5/9-Unusual-Uses-For-Potatoes.jpg"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Potato</h3>
+          <p class="text-sm text-gray-500">₹20 per Kg</p>
+          <button
+            onclick="addToCart('Potato', 20)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://esmmweighless.com/wp-content/uploads/2016/10/cauliflower-1133241_1280-300x225.jpg"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Cauliflower</h3>
+          <p class="text-sm text-gray-500">₹20 per Kg</p>
+          <button
+            onclick="addToCart('Cauliflower', 20)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5Tkp_GtPEPVxpe9Wb2qfbqM-9mjFFnqsUBQ&s"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">cabbage</h3>
+          <p class="text-sm text-gray-500">₹20 per Kg</p>
+          <button
+            onclick="addToCart('Cabbage', 20)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlRcHkJKrNJWq5pPJd3az6-VcQHJ5Qva-WDg&s"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">chillies</h3>
+          <p class="text-sm text-gray-500">₹100 per Kg</p>
+          <button
+            onclick="addToCart('Chillies', 100)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzch83AWCWiohWQi6PN_NCXr36IpIcEdwHIg&s"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Okra</h3>
+          <p class="text-sm text-gray-500">₹50 per Kg</p>
+          <button
+            onclick="addToCart('Okra', 50)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img src="https://www.rafflesmedicalgroup.com/wp-content/uploads/2023/04/The-Different-Colours-of-Rice-960x540.jpg"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Rice</h3>
+          <p class="text-sm text-gray-500">₹50 per unit</p>
+          <button
+            onclick="addToCart('Rice', 50)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRIJgyMIPnxggP-V5w7U8gBxcY8AYv-r6JeQ&s"
+            class="h-32 w-full object-cover rounded mb-3"
+            alt="Pizza Base"
+          />
+          <h3 class="text-lg font-semibold">Maida</h3>
+          <p class="text-sm text-gray-500">₹20 per Kg</p>
+          <button
+            onclick="addToCart('Maida', 20)"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div
+      id="cart-sidebar"
+      class="fixed right-0 top-0 h-full w-80 bg-white shadow-lg p-4 transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto"
+    >
+      <h2 class="text-xl font-semibold mb-4">🛒 Your Cart</h2>
+      <ul id="cart-items" class="mb-4 space-y-2"></ul>
+      <p class="text-lg font-bold">Total: ₹<span id="total-cost">0</span></p>
+      <button
+        onclick="toggleCart()"
+        class="mt-4 w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+      >
+        Close
+      </button>
+    </div>
+
+    <script>
+      let cart = [];
+
+      function addToCart(itemName, price) {
+        cart.push({ name: itemName, price });
+        updateCartUI();
+      }
+
+      function updateCartUI() {
+        const cartList = document.getElementById("cart-items");
+        const totalCostSpan = document.getElementById("total-cost");
+        const cartCount = document.getElementById("cart-count");
+
+        cartList.innerHTML = "";
+        let total = 0;
+
+        cart.forEach((item) => {
+          total += item.price;
+          const li = document.createElement("li");
+          li.className = "flex justify-between items-center";
+          li.innerHTML = `
+          <span>${item.name}</span>
+          <span>₹${item.price}</span>
+        `;
+          cartList.appendChild(li);
+        });
+
+        totalCostSpan.textContent = total;
+        cartCount.textContent = cart.length;
+      }
+
+      function toggleCart() {
+        const sidebar = document.getElementById("cart-sidebar");
+        sidebar.classList.toggle("translate-x-full");
+      }
+    </script>
+
+   
+
+    <!-- <div class="absolute inset-0 flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-globe h-32 w-32 text-purple-400"
+      >
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+        <path d="M2 12h20"></path>
+      </svg>
+    </div> -->
+
+    
+  </body>
+</html>

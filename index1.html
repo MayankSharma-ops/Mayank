@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management Dashboard</title>
+    <link rel="stylesheet" href="style1.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-box"></i> InventoryPro</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-shopping-cart"></i> Sell</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar"></i> Reporting</a></li>
+                    <li><a href="#"><i class="fas fa-boxes"></i> Catalog</a></li>
+                    <li><a href="#"><i class="fas fa-warehouse"></i> Inventory</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Customers</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Setup</a></li>
+                     <!-- <button id="themeToggle" class="btn theme-toggle">
+        <i class="fas fa-moon"></i> Dark Mode
+    </button> -->
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar"></div>
+                    <div class="user-details">
+                        <p class="user-name">Sourodip</p>
+                        <p class="user-role">Admin</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <h1>Dashboard</h1>
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-menu">
+                        <a href="profile.html">
+                      <i class="fas fa-user-circle"></i>
+                        </a>
+                    </div>
+                    <div>
+                        <button id="themeToggle" class="btn theme-toggle">
+                        <i class="fas fa-moon"></i> Dark Mode
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Dashboard Tabs -->
+                <div class="dashboard-tabs">
+                    <button class="tab-btn active" data-tab="overview">Overview</button>
+                    <button class="tab-btn" data-tab="analytics">Analytics</button>
+                    <button class="tab-btn" data-tab="inventory">Inventory</button>
+                    <button class="tab-btn" data-tab="orders">Orders</button>
+                </div>
+
+                <!-- Key Metrics -->
+                <section class="metrics-section">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                         <i class="fa fa-inr" aria-hidden="true"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Total Sales</h3>
+                            <p class="metric-value">45,000</p>
+                            <p class="metric-trend positive">+20.1% from last month</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Average Order Value</h3>
+                            <p class="metric-value">2499</p>
+                            <p class="metric-trend positive">+7.2% from last month</p>
+                        </div>
+                    </div>
+                    <div class="metric-card alert">
+                        <div class="metric-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Low Stock Items</h3>
+                            <p class="metric-value">12</p>
+                            <p class="metric-trend">Requires attention</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Total Orders</h3>
+                            <p class="metric-value">573</p>
+                            <p class="metric-trend positive">+201 since last week</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Charts & Analytics -->
+                <section class="charts-section">
+                    <div class="chart-card large">
+                        <div class="chart-header">
+                            <h3>Sales Overview</h3>
+                            <div class="chart-actions">
+                                <select class="time-range">
+                                    <option>Last 30 Days</option>
+                                    <option>Last Quarter</option>
+                                    <option>Last Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Inventory Status</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="inventoryChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Top Selling Products</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="productsChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Inventory Management -->
+                <section class="inventory-section">
+                    <div class="section-header">
+                        <h2>Inventory Management</h2>
+                        <button class="btn primary"><i class="fas fa-plus"></i> Add Product</button>
+                    </div>
+                    <div class="inventory-filters">
+                        <div class="search-filter">
+                            <input type="text" placeholder="Search products...">
+                        </div>
+                        <div class="category-filter">
+                            <select>
+                                <option>All Categories</option>
+                                <option>Electronics</option>
+                                <option>Clothing</option>
+                                <option>Home Goods</option>
+                                <option>Books</option>
+                            </select>
+                        </div>
+                        <div class="stock-filter">
+                            <select>
+                                <option>All Stock Levels</option>
+                                <option>Low Stock</option>
+                                <option>Out of Stock</option>
+                                <option>In Stock</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="inventory-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>SKU</th>
+                                    <th>Category</th>
+                                    <th>Stock</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="product-cell">
+                                        <div class="product-img"></div>
+                                        <div class="product-info">
+                                            <p class="product-name">Wireless Headphones</p>
+                                            <p class="product-supplier">Tech Supplies Inc.</p>
+                                        </div>
+                                    </td>
+                                    <td>WH-1001</td>
+                                    <td>Electronics</td>
+                                    <td>24</td>
+                                    <td>$89.99</td>
+                                    <td><span class="status in-stock">In Stock</span></td>
+                                    <td class="actions-cell">
+                                        <button class="btn icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn icon"><i class="fas fa-barcode"></i></button>
+                                        <button class="btn icon"><i class="fas fa-ellipsis-v"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="product-cell">
+                                        <div class="product-img"></div>
+                                        <div class="product-info">
+                                            <p class="product-name">Smart Watch</p>
+                                            <p class="product-supplier">Tech Supplies Inc.</p>
+                                        </div>
+                                    </td>
+                                    <td>SW-2002</td>
+                                    <td>Electronics</td>
+                                    <td>8</td>
+                                    <td>$199.99</td>
+                                    <td><span class="status low-stock">Low Stock</span></td>
+                                    <td class="actions-cell">
+                                        <button class="btn icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn icon"><i class="fas fa-barcode"></i></button>
+                                        <button class="btn icon"><i class="fas fa-ellipsis-v"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="product-cell">
+                                        <div class="product-img"></div>
+                                        <div class="product-info">
+                                            <p class="product-name">Cotton T-Shirt</p>
+                                            <p class="product-supplier">Fashion Wholesale Ltd.</p>
+                                        </div>
+                                    </td>
+                                    <td>CT-3003</td>
+                                    <td>Clothing</td>
+                                    <td>120</td>
+                                    <td>$24.99</td>
+                                    <td><span class="status in-stock">In Stock</span></td>
+                                    <td class="actions-cell">
+                                        <button class="btn icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn icon"><i class="fas fa-barcode"></i></button>
+                                        <button class="btn icon"><i class="fas fa-ellipsis-v"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="product-cell">
+                                        <div class="product-img"></div>
+                                        <div class="product-info">
+                                            <p class="product-name">Coffee Maker</p>
+                                            <p class="product-supplier">Home Appliances Co.</p>
+                                        </div>
+                                    </td>
+                                    <td>CM-4004</td>
+                                    <td>Home Goods</td>
+                                    <td>0</td>
+                                    <td>$129.99</td>
+                                    <td><span class="status out-of-stock">Out of Stock</span></td>
+                                    <td class="actions-cell">
+                                        <button class="btn icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn icon"><i class="fas fa-barcode"></i></button>
+                                        <button class="btn icon"><i class="fas fa-ellipsis-v"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="product-cell">
+                                        <div class="product-img"></div>
+                                        <div class="product-info">
+                                            <p class="product-name">Desk Lamp</p>
+                                            <p class="product-supplier">Home Appliances Co.</p>
+                                        </div>
+                                    </td>
+                                    <td>DL-5005</td>
+                                    <td>Home Goods</td>
+                                    <td>45</td>
+                                    <td>$39.99</td>
+                                    <td><span class="status in-stock">In Stock</span></td>
+                                    <td class="actions-cell">
+                                        <button class="btn icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn icon"><i class="fas fa-barcode"></i></button>
+                                        <button class="btn icon"><i class="fas fa-ellipsis-v"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <button class="btn pagination-btn"><i class="fas fa-chevron-left"></i></button>
+                        <button class="btn pagination-btn active">1</button>
+                        <button class="btn pagination-btn">2</button>
+                        <button class="btn pagination-btn">3</button>
+                        <span class="pagination-ellipsis">...</span>
+                        <button class="btn pagination-btn">10</button>
+                        <button class="btn pagination-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </section>
+
+                <!-- Recent Activity -->
+                <section class="activity-section">
+                    <div class="section-header">
+                        <h2>Recent Activity</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon order">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-title">New Order #12345</p>
+                                <p class="activity-desc">Customer: Jane Smith - $349.99</p>
+                                <p class="activity-time">10 minutes ago</p>
+                            </div>
+                            <div class="activity-actions">
+                                <button class="btn small">View</button>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon alert">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-title">Low Stock Alert</p>
+                                <p class="activity-desc">Smart Watch (SKU: SW-2002) - 8 remaining</p>
+                                <p class="activity-time">1 hour ago</p>
+                            </div>
+                            <div class="activity-actions">
+                                <button class="btn small">Reorder</button>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon return">
+                                <i class="fas fa-undo"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-title">Return Request #789</p>
+                                <p class="activity-desc">Customer: Mike Johnson - Wireless Headphones</p>
+                                <p class="activity-time">3 hours ago</p>
+                            </div>
+                            <div class="activity-actions">
+                                <button class="btn small">Process</button>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon shipment">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-title">Shipment Delivered</p>
+                                <p class="activity-desc">Order #12340 delivered to customer</p>
+                                <p class="activity-time">Yesterday</p>
+                            </div>
+                            <div class="activity-actions">
+                                <button class="btn small">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Toggle sidebar on mobile
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.dashboard-container').classList.toggle('sidebar-collapsed');
+        });
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                // In a real app, you would show/hide content based on the selected tab
+            });
+        });
+
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sales Chart
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            const salesChart = new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Sales',
+                        data: [4000, 3000, 5000, 4500, 6000, 5500, 7000, 6500, 8000, 7500, 9000, 8500],
+                        borderColor: '#4361ee',
+                        backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(200, 200, 200, 0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Inventory Chart
+            const inventoryCtx = document.getElementById('inventoryChart').getContext('2d');
+            const inventoryChart = new Chart(inventoryCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Electronics', 'Clothing', 'Home', 'Books', 'Sports'],
+                    datasets: [{
+                        label: 'Stock',
+                        data: [120, 80, 40, 30, 50],
+                        backgroundColor: [
+                            'rgba(67, 97, 238, 0.7)',
+                            'rgba(76, 201, 240, 0.7)',
+                            'rgba(247, 127, 0, 0.7)',
+                            'rgba(255, 209, 102, 0.7)',
+                            'rgba(114, 9, 183, 0.7)'
+                        ],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(200, 200, 200, 0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Products Chart
+            const productsCtx = document.getElementById('productsChart').getContext('2d');
+            const productsChart = new Chart(productsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Wireless Headphones', 'Smart Watch', 'Cotton T-Shirt', 'Coffee Maker', 'Desk Lamp'],
+                    datasets: [{
+                        data: [30, 25, 20, 15, 10],
+                        backgroundColor: [
+                            'rgba(67, 97, 238, 0.7)',
+                            'rgba(76, 201, 240, 0.7)',
+                            'rgba(247, 127, 0, 0.7)',
+                            'rgba(255, 209, 102, 0.7)',
+                            'rgba(114, 9, 183, 0.7)'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 15
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        });
+    </script>
+</body>
+
+<!-- Dark mode -->
+ <script>
+    // Add this with your other DOM element selectors
+const themeToggle = document.getElementById('themeToggle');
+
+// Add this to your setupEventListeners function
+themeToggle.addEventListener('click', toggleTheme);
+
+// Add this function to handle theme switching
+function toggleTheme() {
+    const body = document.body;
+    
+    if (body.classList.contains('dark-mode')) {
+        // Switch to light mode
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+        
+        // Save preference
+        localStorage.setItem('theme', 'light');
+    } else {
+        // Switch to dark mode
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        
+        // Save preference
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// Add this to your initPage function to check for saved preference
+function initPage() {
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.body.classList.add(savedTheme + '-mode');
+    
+    // Update button text
+    if (savedTheme === 'dark') {
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+    } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+    }
+    
+    // Rest of your initialization code...
+}
+ </script>
+</html>
